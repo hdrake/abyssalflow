@@ -23,7 +23,7 @@ julia --project=../../abyssalflow
 
 # Jupyterlab
 
-Post-processing of PGCM output is done via `jupyter-lab` using `jupyter` notebooks with a Julia v1.2.0 kernel. To ensure that jupyter recognizes the Julia v1.2.0 kernel, I recommend building `IJulia` with the commands
+Post-processing of PGCM output is done via `jupyter-lab` using `jupyter` notebooks with a Julia v1.2.0 kernel. To ensure that jupyter recognizes the Julia v1.2.0 kernel, I recommend switch to the Julia REPL with `]` and building `IJulia` with the commands
 ```julia
 ] build IJulia
 ```
