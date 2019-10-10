@@ -4,3 +4,5 @@ Create model directory (if it doesn't already exist)
 Create model instance
 Copying input files to model run directory
 Running model starting at T=0, PGCMITER0=0
+  4000 8.00e-02 -2.75672e-01
+saved
