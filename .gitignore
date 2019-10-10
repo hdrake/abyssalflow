@@ -21,7 +21,7 @@ pgcm/*/runs/*/*
 err
 out
 slurm*.out
-output*.txt
+output_*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
