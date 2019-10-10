@@ -2,14 +2,20 @@
 data
 
 # PGCM source code
-src/*
-!src/runs/
-src/runs/*
-!src/runs/test/
-src/runs/test/*
-!/src/runs/test/param.h5
-!/src/runs/test/0000000000.h5
-!/src/runs/test/0000000400.h5
+pgcm/*
+!/pgcm/*/
+pgcm/*/runs/
+pgcm/*/*.h5
+!/pgcm/*/runs
+pgcm/*/runs/*/
+!/pgcm/*/runs/*/
+pgcm/*/runs/*/*
+!/pgcm/*/runs/*/param.h5
+!/pgcm/*/runs/*/0000000000.h5
+!/pgcm/*/runs/*/0000000500.h5
+!/pgcm/*/runs/*/0000005000.h5
+!/pgcm/*/runs/*/0000050000.h5
+!/pgcm/*/runs/*/0004000000.h5
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
