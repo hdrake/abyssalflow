@@ -1,0 +1,60 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH --exclusive
+#SBATCH -p sched_mit_raffaele
+#SBATCH --time=36:00:00
+
+NSLOTS=$SLURM_NTASKS
+echo '**************************************************'
+THEDATE = 'date'
+echo 'Start job '$THEDATE
+echo 'NSLOTS = '$NSLOTS
+echo '===================== NODELIST ===================='
+echo $SLURM_NODELIST
+echo '======================= env ======================='
+env
+echo '==================================================='
+
+# execute-PGCM-repeat-thread
+# Adapted from Tristan Abbott // MIT EAPS // 11/17/2017
+# By Henri Drake // MIT EAPS // 11/17/2017
+#
+# Perform "repetitions" of a model run that 
+# starts itself from the last saved output file and
+# requeues the next model run, to be repeated N times
+
+echo '==================================================='
+
+EXPNAME=$1
+ITER0=$2
+
+# Check that an argument was given
+if [ "$#" -ne 2 ]; then
+        echo "Usage: sbatch execute-PGCM-repeat EXPNAME ITER0 ITERN"
+        echo "EXPNAME: name of experiment"
+	echo "ITER0: current repitition number"
+        exit
+fi
+
+# Run PGCM
+echo "Loading modules"
+. /etc/profile.d/modules.sh
+# echo "Loading julia"
+# module add engaging/julia/0.6.1
+
+echo "Create model directory (if it doesn't already exist)"
+if [ ! -e "runs/$EXPNAME" ] ; then
+	mkdir -p runs/$EXPNAME
+elif [ $ITER0 -ne 0 ] ; then
+	echo "Restarting from existing run."
+fi
+echo "Create model instance"
+julia --project=../../../abyssalflow create.jl $EXPNAME
+echo "Copying input files to model run directory"
+cp *.jl runs/$EXPNAME
+cp *.h5 runs/$EXPNAME
+PGCMITER0=`expr $ITER0 \\* 50000`
+echo "Running model starting at T=$ITER0, PGCMITER0=$PGCMITER0"
+julia --project=../../../abyssalflow run.jl $EXPNAME $PGCMITER0
+echo "Model run completed"
+

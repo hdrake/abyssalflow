@@ -1,10 +1,10 @@
 include("kernel.jl")
 
 # path to folder containing param.h5 and <time step>.h5
-path = string("runs/",args[1])
+path = string("runs/",ARGS[1])
 
 # time step to start from
-i0 = parse(Int, args[2])
+i0 = parse(Int, ARGS[2])
 
 # output saving frequency (in timesteps)
 save_freq = 5000

@@ -1,0 +1,89 @@
+#!/bin/bash
+
+## Job
+#SBATCH --job-name=p-a-sens
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --partition=sched_mit_raffaele
+#SBATCH --time=36:00:00
+#SBATCH --exclusive
+
+## Streams
+#SBATCH --output=out/job_%j.out
+#SBATCH --output=err/job_%j.err
+
+## Example serial run:
+## ""
+## srun julia run.jl equil_1 0 &
+## srun julia run.jl equil_2 0 & 
+## wait
+## ""
+## & runs next line before that one finishes.
+## wait makes sure commands finish before ending script
+
+startt=`date +%s`
+
+EXPNAME=$1
+ITER0=$2
+ITERN=$3
+
+cd ../pgcm/ridge-0.6_del-0.2
+cp ../../scripts/execute-PGCM-repeat-thread .
+echo $PWD
+srun -n 1 --exclusive execute-PGCM-repeat-thread $EXPNAME $ITER0 $ITERN > "output_"$ITER0".txt" &
+
+cd ../../pgcm/ridge-0.6_del-0.4
+cp ../../scripts/execute-PGCM-repeat-thread .
+echo $PWD
+srun -n 1 --exclusive execute-PGCM-repeat-thread $EXPNAME $ITER0 $ITERN > "output_"$ITER0".txt" &
+
+cd ../../pgcm/ridge-0.6_del-0.8
+cp ../../scripts/execute-PGCM-repeat-thread .
+echo $PWD
+srun -n 1 --exclusive execute-PGCM-repeat-thread $EXPNAME $ITER0 $ITERN > "output_"$ITER0".txt" &
+
+cd ../../pgcm/ridge-0.6_del-inf
+cp ../../scripts/execute-PGCM-repeat-thread .
+echo $PWD
+srun -n 1 --exclusive execute-PGCM-repeat-thread $EXPNAME $ITER0 $ITERN > "output_"$ITER0".txt" &
+
+cd ../../pgcm/ridge-0.6_del-0.4_a-0.25x
+cp ../../scripts/execute-PGCM-repeat-thread .
+echo $PWD
+srun -n 1 --exclusive execute-PGCM-repeat-thread $EXPNAME $ITER0 $ITERN > "output_"$ITER0".txt" &
+
+cd ../../pgcm/ridge-0.6_del-0.4_a-0.5x
+cp ../../scripts/execute-PGCM-repeat-thread .
+echo $PWD
+srun -n 1 --exclusive execute-PGCM-repeat-thread $EXPNAME $ITER0 $ITERN > "output_"$ITER0".txt" &
+
+cd ../../pgcm/ridge-0.6_del-0.4_a-2.0x
+cp ../../scripts/execute-PGCM-repeat-thread .
+echo $PWD
+srun -n 1 --exclusive execute-PGCM-repeat-thread $EXPNAME $ITER0 $ITERN > "output_"$ITER0".txt" &
+
+cd ../../pgcm/ridge-0.6_del-0.4_a-4.0x
+cp ../../scripts/execute-PGCM-repeat-thread .
+echo $PWD
+srun -n 1 --exclusive execute-PGCM-repeat-thread $EXPNAME $ITER0 $ITERN > "output_"$ITER0".txt" &
+
+echo "Waiting"
+wait
+endt=`date +%s`
+runtime=$((endt-startt))
+echo "Done Waiting at t=$runtime"
+
+cd ../../scripts
+
+# If finished, then end
+if [ "$MAXITER" -ge "$ITERN" ]; then
+	echo "Completed all model runs"
+
+# If not finished, then resubmit this job with new iteration number
+else
+	# Update starting iteration
+	NEWITER0=`expr $ITER0 + 1`
+
+	# Submit the new job
+	sbatch $0 $EXPNAME $NEWITER0 $ITERN
+fi

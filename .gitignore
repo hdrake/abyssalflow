@@ -17,6 +17,11 @@ pgcm/*/runs/*/*
 !/pgcm/*/runs/*/0000050000.h5
 !/pgcm/*/runs/*/0004000000.h5
 
+# misc
+err
+out
+slurm*.out
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

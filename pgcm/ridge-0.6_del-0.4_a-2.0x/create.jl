@@ -1,7 +1,7 @@
 include("kernel.jl")
 
 # experiment name (determines folder in runs/)
-name = args[1]
+name = ARGS[1]
 
 # aspect ratio (alpha)
 a = .2*2.0
