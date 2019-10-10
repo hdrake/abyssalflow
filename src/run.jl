@@ -7,8 +7,9 @@ path = string("runs/",args[1])
 i0 = parse(Int, args[2])
 
 # output saving frequency (in timesteps)
-save_freq = 4000
+#save_freq = 4000
 #save_freq = 400
+save_freq = 10
 
 # load model setup
 println("loading setup")

@@ -1,6 +1,15 @@
 # Data
-src/runs
 data
+
+# PGCM source code
+src/*
+!src/runs/
+src/runs/*
+!src/runs/test/
+src/runs/test/*
+!/src/runs/test/param.h5
+!/src/runs/test/0000000000.h5
+!/src/runs/test/0000000400.h5
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
