@@ -15,7 +15,9 @@ pgcm/*/runs/*/*
 !/pgcm/*/runs/*/0000000500.h5
 !/pgcm/*/runs/*/0000005000.h5
 !/pgcm/*/runs/*/0000050000.h5
-!/pgcm/*/runs/*/0004000000.h5
+!/pgcm/*/runs/*/0002500000.h5
+!/pgcm/*/runs/*/1d*
+core.*
 
 # misc
 err

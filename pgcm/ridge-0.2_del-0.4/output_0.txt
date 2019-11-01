@@ -7,3 +7,24 @@ Running model starting at T=0, PGCMITER0=0
   4000 8.00e-02 -2.75672e-01
 saved
   8000 1.60e-01 -2.75525e-01
+saved
+ 12000 2.40e-01 -2.75387e-01
+saved
+ 16000 3.20e-01 -2.75257e-01
+ 20000 4.00e-01 -2.75131e-01
+saved
+ 24000 4.80e-01 -2.75009e-01
+saved
+ 28000 5.60e-01 -2.74890e-01
+saved
+ 32000 6.40e-01 -2.74774e-01
+saved
+ 36000 7.20e-01 -2.74660e-01
+ 40000 8.00e-01 -2.74548e-01
+saved
+ 44000 8.80e-01 -2.74437e-01
+saved
+ 48000 9.60e-01 -2.74329e-01
+saved
+Model run completed
+Replaced T = 1 with T = 2 in create.jl
