@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# execute-PGCM-repeat-thread
+# Adapted from Tristan Abbott // MIT EAPS // 11/17/2017
+# By Henri Drake // MIT EAPS // 11/17/2017
+#
+# Perform "repetitions" of a model run that 
+# starts itself from the last saved output file and
+# requeues the next model run, to be repeated N times
+
+echo '==================================================='
+
+EXPNAME=$1
+ITER0=$2
+ITERN=$3
+
+# Check that an argument was given
+if [ "$#" -ne 3 ]; then
+        echo "Usage: sbatch execute-PGCM-repeat EXPNAME ITER0 ITERN"
+        echo "EXPNAME: name of experiment"
+	echo "ITER0: current repitition number"
+	echo "ITERN: total number of repititions"
+        exit
+fi
+
+# Setup modules and directories
+echo "Loading modules"
+. /etc/profile.d/modules.sh
+
+echo "Create model directory (if it doesn't already exist)"
+if [ ! -e "runs/$EXPNAME" ] ; then
+	mkdir -p runs/$EXPNAME
+elif [ $ITER0 -ne 0 ] ; then
+	echo "Restarting from existing run."
+fi
+
+# Setup PGCM
+echo "Create model instance"
+julia --project=../../../abyssalflow/ create.jl $EXPNAME
+echo "Copying input files to model run directory"
+cp *.jl runs/$EXPNAME
+cp *.h5 runs/$EXPNAME
+PGCMITER0=`expr $ITER0 \\* 50000`
+
+# Run PGCM
+echo "Running model starting at T=$ITER0, PGCMITER0=$PGCMITER0"
+julia --project=../../../abyssalflow run.jl $EXPNAME $PGCMITER0
+echo "Model run completed"
+
+# Update Run Time
+MAXITER=`expr $ITER0 + 1`
+NEWMAXITER=`expr $ITER0 + 2`
+NEWITER0=`expr $ITER0 + 1`
+
+# Replace T (total run time) in create.jl
+echo "Replaced T = $MAXITER with T = $NEWMAXITER in create.jl"
+cat runs/$EXPNAME/create.jl | sed -e "s/T = $MAXITER/T = $NEWMAXITER/" > runs/$EXPNAME/newcreate.jl
+mv runs/$EXPNAME/newcreate.jl runs/$EXPNAME/create.jl
+cp runs/$EXPNAME/create.jl create.jl
+

@@ -4,5 +4,27 @@ Create model directory (if it doesn't already exist)
 Create model instance
 Copying input files to model run directory
 Running model starting at T=0, PGCMITER0=0
+  4000 8.00e-02        NaN
+saved
+  8000 1.60e-01        NaN
+saved
+ 12000 2.40e-01        NaN
+saved
+ 16000 3.20e-01        NaN
+ 20000 4.00e-01        NaN
+saved
+ 24000 4.80e-01        NaN
+saved
+ 28000 5.60e-01        NaN
+saved
+ 32000 6.40e-01        NaN
+saved
+ 36000 7.20e-01        NaN
+ 40000 8.00e-01        NaN
+saved
+ 44000 8.80e-01        NaN
+saved
+ 48000 9.60e-01        NaN
+saved
 Model run completed
 Replaced T = 1 with T = 2 in create.jl
