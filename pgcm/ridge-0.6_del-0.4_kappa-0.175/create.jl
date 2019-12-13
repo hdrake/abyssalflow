@@ -55,7 +55,7 @@ bi(z) = del*(exp.(z/del)-1)
 c(y) = (1 - tanh.((y+.5)/.1))/2
 
 # simulation length
-T = 30
+T = 31
 
 # number of grid points
 nx = 100
