@@ -1,7 +1,6 @@
 abyssalflow
 ==============================
-[![Build Status](https://travis-ci.com/hdrake/abyssalflow.svg?branch=master)](https://travis-ci.com/hdrake/abyssalflow)
-[![codecov](https://codecov.io/gh/hdrake/abyssalflow/branch/master/graph/badge.svg)](https://codecov.io/gh/hdrake/abyssalflow)
+[![DOI](https://zenodo.org/badge/208098146.svg)](https://zenodo.org/badge/latestdoi/208098146)
 [![License:MIT](https://img.shields.io/badge/License-MIT-lightgray.svg?style=flt-square)](https://opensource.org/licenses/MIT)
 
 Repository for running and analyzing the Planetary Geostrophic Circulation Model
